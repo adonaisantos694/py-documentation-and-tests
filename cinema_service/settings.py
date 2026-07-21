@@ -1,4 +1,15 @@
-# Certifique-se de remover qualquer linha solta como "from rest_framework import viewsets" ou similares no topo do settings.py
+import os
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Busca do ambiente, mas usa um fallback seguro caso a pipeline não envie a variável
+SECRET_KEY = os.environ.get(
+    "SECRET_KEY", "django-insecure-fallback-secret-key-for-testing-purposes")
+
+DEBUG = True
+
+ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -10,8 +21,10 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework_simplejwt",
     "drf_spectacular",
-    "cinema",  # <-- ADICIONADO PARA RESOLVER O RUNTIME ERROR
+    "cinema",
 ]
+
+# ... restante das suas configurações (MIDDLEWARE, TEMPLATES, DATABASES, etc.) ...
 
 REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
